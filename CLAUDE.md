@@ -48,6 +48,20 @@ All user-facing labels and dates are in **Turkish**. Key helpers:
 
 `TabId` = `"home" | "workout" | "galaxy" | "reports" | "profile"`. Active tab is controlled via `setActiveTab` in AppContext.
 
+### Pages (`src/pages/`)
+
+Each tab renders a dedicated page component:
+- `HomePage.tsx` — dashboard with greeting and connection status
+- `WorkoutPage.tsx` — workout list with add/edit entry points
+- `WorkoutFormPage.tsx` — form for creating/editing a workout
+
+### Workout Components (`src/components/workout/`)
+
+- `WorkoutCard.tsx` — single workout summary card
+- `ExerciseRow.tsx` — exercise entry row within a workout form
+- `ExercisePickerModal.tsx` — modal for selecting exercises from the library
+- `TemplatePickerModal.tsx` — modal for selecting a workout template
+
 ### Supabase Client
 
 Single shared client in `src/lib/supabase.ts`. Use this instance everywhere — do not create additional clients.
