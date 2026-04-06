@@ -6,6 +6,7 @@ import { HomePage } from "./pages/HomePage";
 import { WorkoutPage } from "./pages/WorkoutPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { GalaxyPage } from "./pages/GalaxyPage";
+import { ReportsPage } from "./pages/ReportsPage";
 
 function PlaceholderPage({ label }: { label: string }) {
   return (
@@ -34,7 +35,7 @@ function Router() {
     case "galaxy":
       return <GalaxyPage />;
     case "reports":
-      return <LibraryPage />;
+      return <ReportsPage />;
     case "profile":
       return <PlaceholderPage label="Profil" />;
     default:
