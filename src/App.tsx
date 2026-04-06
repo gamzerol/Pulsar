@@ -4,6 +4,7 @@ import { BottomNav } from "./components/layout/BottomNavs";
 import { Toast } from "./components/ui/Toast";
 import { HomePage } from "./pages/HomePage";
 import { WorkoutPage } from "./pages/WorkoutPage";
+import { ReportsPage } from "./pages/ReportsPage";
 
 function PlaceholderPage({ label }: { label: string }) {
   return (
@@ -32,7 +33,7 @@ function Router() {
     case "galaxy":
       return <PlaceholderPage label="Galaksi" />;
     case "reports":
-      return <PlaceholderPage label="Raporlar" />;
+      return <ReportsPage />;
     case "profile":
       return <PlaceholderPage label="Profil" />;
     default:
