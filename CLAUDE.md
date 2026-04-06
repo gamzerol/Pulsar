@@ -55,12 +55,23 @@ Each tab renders a dedicated page component:
 - `WorkoutPage.tsx` — workout list with add/edit entry points
 - `WorkoutFormPage.tsx` — form for creating/editing a workout
 
+### Layout Components (`src/components/layout/`)
+
+- `BottomNavs.tsx` — fixed bottom tab bar rendering all 5 tabs; reads `activeTab` / `setActiveTab` from AppContext
+- `Screen.tsx` — scrollable content wrapper with bottom padding; also exports `Header` (sticky page header with `title`, optional `titleAccent`, `subtitle`, and `right` slot)
+
 ### Workout Components (`src/components/workout/`)
 
 - `WorkoutCard.tsx` — single workout summary card
 - `ExerciseRow.tsx` — exercise entry row within a workout form
 - `ExercisePickerModal.tsx` — modal for selecting exercises from the library
 - `TemplatePickerModal.tsx` — modal for selecting a workout template
+
+### UI Primitives (`src/components/ui/`)
+
+- `index.tsx` — shared design-system components: `Card`, `Button` (variants: primary/secondary/ghost/danger; sizes: sm/md/lg), `SectionTitle`, `StatCard`, `EmptyState`, `Badge`, `Input`, `Select`, `Textarea`
+- `StarBackground.tsx` — animated star-field fixed behind all content (z-0, pointer-events-none)
+- `Toast.tsx` — temporary notification overlay; driven by `toast` / `clearToast` in AppContext, auto-dismisses after 2.8 s
 
 ### Supabase Client
 
