@@ -57,7 +57,9 @@ export function GalaxyPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
   const [selected, setSelected] = useState<WeekStar | null>(null);
+  const [canvasSize, setCanvasSize] = useState({ w: 0, h: 0 });
 
+  console.log(canvasSize);
   // Haftalık yıldızları hesapla
   const weekStars = useMemo<WeekStar[]>(() => {
     const map = new Map<string, Workout[]>();
@@ -306,12 +308,24 @@ export function GalaxyPage() {
     function resize() {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const w = canvas.parentElement?.clientWidth ?? 390;
-      const h = canvas.parentElement?.clientHeight ?? 500;
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const w = parent.getBoundingClientRect().width || window.innerWidth;
+      const h =
+        parent.getBoundingClientRect().height || window.innerHeight - 200;
+
+      if (w === 0 || h === 0) return;
+
       canvas.width = w;
       canvas.height = h;
+      setCanvasSize({ w, h });
     }
+
     resize();
+    setTimeout(resize, 100);
+    setTimeout(resize, 500);
+
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
