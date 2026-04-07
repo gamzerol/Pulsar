@@ -1,46 +1,136 @@
-# Getting Started with Create React App
+# Pulsar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Kişisel antrenman takibine odaklanmış, modern ve hafif bir fitness tracker uygulaması. React 19 + TypeScript ile geliştirilmiş olup Supabase'i backend olarak kullanır.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Tech Stack
 
-### `npm start`
+| Katman | Teknoloji |
+|---|---|
+| UI Framework | React 19 + TypeScript |
+| Styling | Tailwind CSS |
+| Backend / DB | Supabase (PostgreSQL) |
+| Grafikler | Recharts |
+| İkonlar | Lucide React |
+| Bootstrapper | Create React App |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Özellikler
 
-### `npm test`
+- Antrenman oluşturma, düzenleme ve listeleme
+- Egzersiz kütüphanesi ve kategori bazlı filtreleme
+- Şablon (template) ile hızlı antrenman başlatma
+- Vücut ağırlığı ve hedef takibi
+- Haftalık raporlar ve istatistikler
+- Galaksi görünümü ile görsel ilerleme takibi
+- Animasyonlu yıldız arka planı ile koyu tema arayüzü
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Proje Yapısı
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── App.tsx                  # Uygulama kabuğu ve sekme yönlendirici (Router)
+├── index.tsx                # React giriş noktası
+├── index.css                # Global stiller ve CSS değişkenleri
+│
+├── types/
+│   └── index.ts             # Tüm TypeScript tip tanımları
+│
+├── lib/
+│   ├── AppContext.tsx        # Global state (useApp hook)
+│   ├── supabase.ts          # Paylaşımlı Supabase client
+│   └── utils.ts             # Yardımcı fonksiyonlar ve sabitler
+│
+├── pages/
+│   ├── HomePage.tsx         # Ana sayfa — karşılama ve bağlantı durumu
+│   ├── WorkoutPage.tsx      # Antrenman listesi
+│   ├── WorkoutFormPage.tsx  # Antrenman oluşturma / düzenleme formu
+│   ├── GalaxyPage.tsx       # Galaksi sekmesi
+│   ├── ReportsPage.tsx      # Raporlar sekmesi
+│   └── LibraryPage.tsx      # Egzersiz kütüphanesi
+│
+└── components/
+    ├── layout/
+    │   ├── BottomNavs.tsx   # Sabit alt navigasyon çubuğu (5 sekme)
+    │   └── Screen.tsx       # Sayfa sarmalayıcı + Header bileşeni
+    ├── ui/
+    │   ├── index.tsx        # Tasarım sistemi (Card, Button, Badge, Input…)
+    │   ├── StarBackground.tsx  # Animasyonlu yıldız arka planı
+    │   └── Toast.tsx        # Geçici bildirim katmanı
+    └── workout/
+        ├── WorkoutCard.tsx          # Tek antrenman özet kartı
+        ├── ExerciseRow.tsx          # Form içi egzersiz satırı
+        ├── ExercisePickerModal.tsx  # Egzersiz seçim modali
+        ├── ExerciseDetailModal.tsx  # Egzersiz detay modali
+        └── TemplatePickerModal.tsx  # Şablon seçim modali
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Veri Modeli
 
-### `npm run eject`
+| Model | Açıklama |
+|---|---|
+| `Workout` | `type`, `date`, `week_number`, `year`, opsiyonel `workout_exercises[]` |
+| `WorkoutExercise` | Antrenman–egzersiz birleşim tablosu; set/tekrar/süre tutar |
+| `Exercise` | `category` ve `is_default` alanlarına sahip egzersiz kaydı |
+| `Template` | İç içe `TemplateExercise[]` barındıran yeniden kullanılabilir şablon |
+| `BodyWeight` | Vücut ağırlığı takip kaydı |
+| `Goal` | Hedef takip kaydı |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Kurulum
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Gereksinimler
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Node.js 18+
+- Bir Supabase projesi
 
-## Learn More
+### Adımlar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Bağımlılıkları yükle
+npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Ortam değişkenlerini tanımla
+cp .env.example .env
+# .env dosyasını düzenleyerek Supabase bilgilerini ekle
+
+# Geliştirme sunucusunu başlat
+npm start
+```
+
+### Ortam Değişkenleri
+
+`.env` dosyasında aşağıdaki değişkenler gereklidir:
+
+```
+REACT_APP_SUPABASE_URL=...
+REACT_APP_SUPABASE_ANON_KEY=...
+```
+
+---
+
+## Komutlar
+
+```bash
+npm start                          # Geliştirme sunucusu — http://localhost:3000
+npm run build                      # Production build
+npm test                           # Testleri izleme modunda çalıştır
+npm test -- --watchAll=false       # Testleri tek seferlik çalıştır (CI)
+npm test -- -t "test adı"          # Belirli bir testi çalıştır
+```
+
+---
+
+## Mimari Notlar
+
+- **Global State** — tüm uygulama durumu `src/lib/AppContext.tsx` içindedir. Bileşenler `useApp()` hook'u ile veriye erişmeli, doğrudan Supabase sorgusu yapmamalıdır.
+- **Türkçe UI** — tüm kullanıcıya yönelik etiketler ve tarih formatları Türkçedir (`utils.ts`).
+- **Renk Haritaları** — grafiklerde kullanılan `WORKOUT_TYPE_COLORS` ve `CATEGORY_COLORS` sabitleri `utils.ts` içinde tanımlıdır.
+- **Supabase Client** — `src/lib/supabase.ts` içindeki tek örnek kullanılmalı, ek client oluşturulmamalıdır.
