@@ -12,7 +12,7 @@ import {
 import { useApp } from "../lib/AppContext";
 import { supabase } from "../lib/supabase";
 import { Screen, Header } from "../components/layout/Screen";
-import { SectionTitle, StatCard } from "../components/ui";
+import { SectionTitle } from "../components/ui";
 import { getMonthName, calculateStreak } from "../lib/utils";
 
 export function ProfilePage() {

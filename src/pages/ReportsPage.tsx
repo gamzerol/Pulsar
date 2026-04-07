@@ -18,7 +18,6 @@ import {
   formatShortDate,
   getMonthName,
   categoryLabel,
-  WORKOUT_TYPE_COLORS,
   CATEGORY_COLORS,
 } from "../lib/utils";
 
