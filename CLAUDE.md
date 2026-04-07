@@ -54,6 +54,9 @@ Each tab renders a dedicated page component:
 - `HomePage.tsx` — dashboard with greeting and connection status
 - `WorkoutPage.tsx` — workout list with add/edit entry points
 - `WorkoutFormPage.tsx` — form for creating/editing a workout
+- `GalaxyPage.tsx` — galaxy tab page
+- `LibraryPage.tsx` — exercise library (not currently bound to a tab)
+- `ReportsPage.tsx` — reports tab page
 
 ### Layout Components (`src/components/layout/`)
 
@@ -65,6 +68,7 @@ Each tab renders a dedicated page component:
 - `WorkoutCard.tsx` — single workout summary card
 - `ExerciseRow.tsx` — exercise entry row within a workout form
 - `ExercisePickerModal.tsx` — modal for selecting exercises from the library
+- `ExerciseDetailModal.tsx` — modal showing detailed info for a single exercise
 - `TemplatePickerModal.tsx` — modal for selecting a workout template
 
 ### UI Primitives (`src/components/ui/`)
