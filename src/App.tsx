@@ -4,26 +4,9 @@ import { BottomNav } from "./components/layout/BottomNavs";
 import { Toast } from "./components/ui/Toast";
 import { HomePage } from "./pages/HomePage";
 import { WorkoutPage } from "./pages/WorkoutPage";
-import { LibraryPage } from "./pages/LibraryPage";
 import { GalaxyPage } from "./pages/GalaxyPage";
 import { ReportsPage } from "./pages/ReportsPage";
-
-function PlaceholderPage({ label }: { label: string }) {
-  return (
-    <div
-      className="flex-1 overflow-y-auto hide-scrollbar relative z-10 flex items-center justify-center"
-      style={{ paddingBottom: 88 }}
-    >
-      <div style={{ textAlign: "center", color: "var(--text3)" }}>
-        <p style={{ fontSize: 32, marginBottom: 12, opacity: 0.3 }}>🚧</p>
-        <p style={{ fontSize: 15, fontWeight: 600, color: "var(--text2)" }}>
-          {label}
-        </p>
-        <p style={{ fontSize: 13, marginTop: 4 }}>Yakında geliyor</p>
-      </div>
-    </div>
-  );
-}
+import { ProfilePage } from "./pages/ProfilePage";
 
 function Router() {
   const { activeTab } = useApp();
@@ -37,7 +20,7 @@ function Router() {
     case "reports":
       return <ReportsPage />;
     case "profile":
-      return <PlaceholderPage label="Profil" />;
+      return <ProfilePage />;
     default:
       return <HomePage />;
   }
