@@ -38,6 +38,7 @@ export function GalaxyPage() {
   const animRef = useRef<number>(0);
   const [selected, setSelected] = useState<WeekStar | null>(null);
   const [canvasSize, setCanvasSize] = useState({ w: 0, h: 0 });
+  const selectedRef = useRef<WeekStar | null>(null);
 
   console.log(canvasSize);
   // Haftalık yıldızları hesapla
@@ -84,14 +85,13 @@ export function GalaxyPage() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
-    const W = canvas.width;
-    const H = canvas.height;
-    const cx = W / 2;
-    const cy = H / 2;
     let t = 0;
 
     function draw() {
+      const W = canvas!.width;
+      const H = canvas!.height;
+      const cx = W / 2;
+      const cy = H / 2;
       ctx!.clearRect(0, 0, W, H);
 
       // Arka plan
@@ -181,7 +181,7 @@ export function GalaxyPage() {
         ctx!.globalAlpha = 1;
 
         // Seçili yıldız halkası
-        if (selected?.weekKey === s.weekKey) {
+        if (selectedRef.current?.weekKey === s.weekKey) {
           ctx!.beginPath();
           ctx!.arc(sx, sy, s.radius + 6, 0, Math.PI * 2);
           ctx!.strokeStyle = s.color;
@@ -196,7 +196,7 @@ export function GalaxyPage() {
 
     draw();
     return () => cancelAnimationFrame(animRef.current);
-  }, [weekStars, selected]);
+  }, [weekStars, canvasSize]);
 
   // Canvas boyutunu ayarla
   useEffect(() => {
@@ -236,9 +236,16 @@ export function GalaxyPage() {
   function handleCanvasClick(e: React.MouseEvent<HTMLCanvasElement>) {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
     const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
+
+    // CSS boyutu ile canvas boyutu arasındaki oran
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
 
@@ -246,12 +253,19 @@ export function GalaxyPage() {
       const sx = cx + s.x;
       const sy = cy + s.y;
       const dist = Math.sqrt((mx - sx) ** 2 + (my - sy) ** 2);
-      if (dist < s.radius + 10) {
-        setSelected((prev) => (prev?.weekKey === s.weekKey ? null : s));
+
+      if (dist < s.radius + 20) {
+        setSelected((prev) => {
+          const next = prev?.weekKey === s.weekKey ? null : s;
+          selectedRef.current = next;
+          return next;
+        });
         return;
       }
     }
+
     setSelected(null);
+    selectedRef.current = null;
   }
 
   const totalStars = weekStars.length;
