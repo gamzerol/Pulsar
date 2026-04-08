@@ -17,18 +17,6 @@ interface WeekStar {
   workouts: Workout[];
 }
 
-interface MonthPlanet {
-  monthKey: string;
-  month: number;
-  year: number;
-  workoutCount: number;
-  x: number;
-  y: number;
-  radius: number;
-  color: string;
-  ringColor: string;
-}
-
 const STAR_COLORS = [
   "#dbd6ff",
   "#b8aeff",
@@ -37,14 +25,6 @@ const STAR_COLORS = [
   "#06d6a0",
   "#ffd166",
   "#ff6b9d",
-];
-
-const PLANET_COLORS = [
-  { body: "#4cc9f0", ring: "rgba(76,201,240,0.3)" },
-  { body: "#8b7fff", ring: "rgba(139,127,255,0.3)" },
-  { body: "#06d6a0", ring: "rgba(6,214,160,0.3)" },
-  { body: "#ffd166", ring: "rgba(255,209,102,0.3)" },
-  { body: "#ff6b9d", ring: "rgba(255,107,157,0.3)" },
 ];
 
 function seededRandom(seed: number) {
