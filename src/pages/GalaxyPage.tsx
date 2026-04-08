@@ -203,26 +203,33 @@ export function GalaxyPage() {
     function resize() {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const parent = canvas.parentElement;
-      if (!parent) return;
 
-      const w = parent.getBoundingClientRect().width || window.innerWidth;
-      const h =
-        parent.getBoundingClientRect().height || window.innerHeight - 200;
+      const w = window.innerWidth > 430 ? 430 : window.innerWidth;
+      const h = window.innerHeight - 180;
 
-      if (w === 0 || h === 0) return;
+      if (w <= 0 || h <= 0) return;
 
       canvas.width = w;
       canvas.height = h;
       setCanvasSize({ w, h });
     }
 
+    // İlk render
     resize();
-    setTimeout(resize, 100);
-    setTimeout(resize, 500);
+
+    // Layout tamamlanana kadar tekrar dene
+    const t1 = setTimeout(resize, 100);
+    const t2 = setTimeout(resize, 300);
+    const t3 = setTimeout(resize, 800);
 
     window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   // Yıldıza tıkla
