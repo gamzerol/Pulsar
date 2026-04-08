@@ -140,7 +140,7 @@ REACT_APP_SUPABASE_ANON_KEY=your-anon-key
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [https://pulsar-smoky.vercel.app](https://pulsar-smoky.vercel.app) in your browser.
 
 ---
 
