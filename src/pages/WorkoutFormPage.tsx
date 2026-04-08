@@ -127,6 +127,7 @@ export function WorkoutFormPage({
         notes: notes.trim() || null,
         completed: editingWorkout?.completed ?? false,
       };
+      console.log(workoutData);
 
       let workoutId: string;
 

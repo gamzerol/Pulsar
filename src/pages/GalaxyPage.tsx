@@ -98,41 +98,6 @@ export function GalaxyPage() {
     return stars;
   }, [workouts]);
 
-  // Aylık gezegenleri hesapla
-  const monthPlanets = useMemo<MonthPlanet[]>(() => {
-    const map = new Map<string, number>();
-    workouts
-      .filter((w) => w.completed)
-      .forEach((w) => {
-        const d = new Date(w.date);
-        const key = `${d.getFullYear()}-${d.getMonth() + 1}`;
-        map.set(key, (map.get(key) ?? 0) + 1);
-      });
-
-    const planets: MonthPlanet[] = [];
-    let i = 0;
-    map.forEach((count, key) => {
-      const [year, month] = key.split("-").map(Number);
-      const seed = year * 12 + month;
-      const angle = (i / map.size) * Math.PI * 2 + seededRandom(seed) * 0.5;
-      const dist = 260 + seededRandom(seed * 5) * 60;
-      const pc = PLANET_COLORS[i % PLANET_COLORS.length];
-      planets.push({
-        monthKey: key,
-        month,
-        year,
-        workoutCount: count,
-        x: Math.cos(angle) * dist,
-        y: Math.sin(angle) * dist,
-        radius: 10 + Math.min(count, 20) * 0.8,
-        color: pc.body,
-        ringColor: pc.ring,
-      });
-      i++;
-    });
-    return planets;
-  }, [workouts]);
-
   // Canvas çiz
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -186,56 +151,6 @@ export function GalaxyPage() {
       ctx!.arc(cx, cy, 5, 0, Math.PI * 2);
       ctx!.fillStyle = "white";
       ctx!.fill();
-
-      // Gezegenler
-      monthPlanets.forEach((p, i) => {
-        const px = cx + p.x + Math.sin(t * 0.005 + i) * 3;
-        const py = cy + p.y + Math.cos(t * 0.005 + i) * 3;
-
-        // Halka
-        ctx!.beginPath();
-        ctx!.ellipse(
-          px,
-          py,
-          p.radius * 2.2,
-          p.radius * 0.5,
-          0.4,
-          0,
-          Math.PI * 2,
-        );
-        ctx!.strokeStyle = p.ringColor;
-        ctx!.lineWidth = 3;
-        ctx!.stroke();
-
-        // Gezegen gölgesi
-        const pGlow = ctx!.createRadialGradient(
-          px,
-          py,
-          0,
-          px,
-          py,
-          p.radius * 1.5,
-        );
-        pGlow.addColorStop(0, p.color + "40");
-        pGlow.addColorStop(1, "transparent");
-        ctx!.fillStyle = pGlow;
-        ctx!.beginPath();
-        ctx!.arc(px, py, p.radius * 1.5, 0, Math.PI * 2);
-        ctx!.fill();
-
-        // Gezegen
-        ctx!.beginPath();
-        ctx!.arc(px, py, p.radius, 0, Math.PI * 2);
-        ctx!.fillStyle = p.color;
-        ctx!.fill();
-
-        // Ay sayısı etiketi
-        ctx!.fillStyle = "rgba(255,255,255,0.7)";
-        ctx!.font = `bold ${Math.max(9, p.radius * 0.7)}px -apple-system`;
-        ctx!.textAlign = "center";
-        ctx!.textBaseline = "middle";
-        ctx!.fillText(String(p.workoutCount), px, py);
-      });
 
       // Yıldızlar
       weekStars.forEach((s, i) => {
@@ -301,7 +216,7 @@ export function GalaxyPage() {
 
     draw();
     return () => cancelAnimationFrame(animRef.current);
-  }, [weekStars, monthPlanets, selected]);
+  }, [weekStars, selected]);
 
   // Canvas boyutunu ayarla
   useEffect(() => {
@@ -353,7 +268,6 @@ export function GalaxyPage() {
   }
 
   const totalStars = weekStars.length;
-  const totalPlanets = monthPlanets.length;
 
   return (
     <div
@@ -414,22 +328,6 @@ export function GalaxyPage() {
             }}
           >
             ✦ {totalStars} yıldız
-          </div>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              background: "rgba(76,201,240,0.1)",
-              border: "0.5px solid rgba(76,201,240,0.25)",
-              borderRadius: 99,
-              padding: "4px 12px",
-              fontSize: 12,
-              fontWeight: 600,
-              color: "var(--sky)",
-            }}
-          >
-            🪐 {totalPlanets} gezegen
           </div>
         </div>
       </div>
