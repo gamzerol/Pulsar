@@ -39,6 +39,7 @@ export function BottomNav() {
             <button
               key={id}
               onClick={() => setActiveTab(id)}
+              data-testid={`tab-${id}`}
               className="flex-1 flex flex-col items-center gap-1 transition-all duration-200"
               style={{
                 padding: "8px 4px",
