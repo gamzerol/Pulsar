@@ -26,6 +26,8 @@ export function WorkoutCard({
 
   return (
     <div
+      data-testid="workout-card"
+      data-workout-id={workout.id}
       style={{
         background: "var(--surface)",
         border: `0.5px solid ${workout.completed ? "rgba(6,214,160,0.25)" : "var(--border)"}`,
@@ -144,6 +146,7 @@ export function WorkoutCard({
       <div className="flex items-center gap-2 mt-3">
         <button
           onClick={() => onEdit?.(workout)}
+          data-testid="workout-edit-btn"
           style={{
             flex: 1,
             display: "flex",
@@ -163,6 +166,7 @@ export function WorkoutCard({
           <Pencil size={13} /> Düzenle
         </button>
         <button
+          data-testid="workout-copy-btn"
           onClick={() => onCopy?.(workout)}
           style={{
             flex: 1,
@@ -183,6 +187,7 @@ export function WorkoutCard({
           <Copy size={13} /> Kopyala
         </button>
         <button
+          data-testid="workout-delete-btn"
           onClick={() => onDelete?.(workout)}
           style={{
             display: "flex",

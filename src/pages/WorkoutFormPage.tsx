@@ -309,6 +309,7 @@ export function WorkoutFormPage({
             Antrenman Adı
           </label>
           <input
+            data-testid="workout-title-input"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -570,6 +571,7 @@ export function WorkoutFormPage({
         {/* Kaydet butonu */}
         <button
           onClick={handleSave}
+          data-testid="workout-save-btn"
           disabled={saving}
           style={{
             width: "100%",

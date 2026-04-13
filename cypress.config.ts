@@ -6,5 +6,9 @@ export default defineConfig({
     viewportWidth: 390,
     viewportHeight: 844,
     supportFile: "cypress/support/e2e.ts",
+    fixturesFolder: "cypress/fixtures",
+    specPattern: "cypress/e2e/**/*.cy.{ts,tsx}",
+    video: false,
+    screenshotOnRunFailure: true,
   },
 });
